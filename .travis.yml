@@ -3,22 +3,22 @@ services:
     - docker
 
 before_install:
-    - docker build -t spanchagnula/react-test -f ./client/Dockerfile.dev ./client 
+    - docker build -t dacoder/react-test -f ./client/Dockerfile.dev ./client 
 
 script:
-    - docker run -e CI=true spanchagnula/react-test npm test
+    - docker run -e CI=true dacoder/react-test npm test
 
 after_success:
-    - docker build -t spanchagnula/multi-client ./client 
-    - docker build -t spanchagnula/multi-nginx ./nginx 
-    - docker build -t spanchagnula/multi-server ./server
-    - docker build -t spanchagnula/multi-worker ./worker 
+    - docker build -t dacoder/multi-client ./client 
+    - docker build -t dacoder/multi-nginx ./nginx 
+    - docker build -t dacoder/multi-server ./server
+    - docker build -t dacoder/multi-worker ./worker 
 
     # Log in to the docker CLI
     - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_ID" --password-stdin
     
     #    Take those images and push them to docker hub
-    - docker push spanchagnula/multi-client 
-    - docker push spanchagnula/multi-nginx
-    - docker push spanchagnula/multi-server
-    - docker push spanchagnula/multi-worker
+    - docker push dacoder/multi-client 
+    - docker push dacoder/multi-nginx
+    - docker push dacoder/multi-server
+    - docker push dacoder/multi-worker
